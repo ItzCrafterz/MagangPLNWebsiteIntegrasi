@@ -73,6 +73,11 @@
             cursor: pointer;
             font-size: 1rem;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            min-height: 40px;
         }
         .tool-btn:hover { background: var(--accent-yellow); color: #002f5e; border-color: var(--accent-yellow); }
 
@@ -131,29 +136,18 @@
         .card-nav-top { position: absolute; top: 15px; width: calc(100% - 30px); left: 15px; display: flex; justify-content: space-between; z-index: 10; }
         
         .menu-dots { 
-            background: none; 
-            border: none; 
-            color: var(--text-white); 
-            font-size: 1.2rem; 
-            cursor: pointer; 
-            opacity: 0.1;
-            transition: all 0.3s ease;
-            padding: 5px;
+            background: none; border: none; color: var(--text-white); font-size: 1.2rem; cursor: pointer; opacity: 0.1; transition: all 0.3s ease; padding: 5px;
         }
         
         .menu-dots:hover { 
-            opacity: 1 !important; 
-            color: var(--accent-yellow);
-            transform: scale(1.3);
-            text-shadow: 0 0 10px var(--accent-yellow);
+            opacity: 1 !important; color: var(--accent-yellow); transform: scale(1.3); text-shadow: 0 0 10px var(--accent-yellow);
         }
 
         .menu-dots:hover ~ .card {
-            border-color: var(--accent-yellow) !important;
-            box-shadow: 0 0 15px rgba(255, 237, 0, 0.3);
+            border-color: var(--accent-yellow) !important; box-shadow: 0 0 15px rgba(255, 237, 0, 0.3);
         }
 
-        /* ANIMASI BINTANG - PERBAIKAN LOGIKA HOVER */
+        /* ANIMASI BINTANG */
         @keyframes starBlinkActive {
             0% { transform: scale(1); filter: drop-shadow(0 0 0px #f1c40f); opacity: 1; }
             50% { transform: scale(1.4); filter: drop-shadow(0 0 15px #f1c40f); opacity: 0.8; }
@@ -166,35 +160,14 @@
             100% { transform: scale(1); opacity: 0.3; }
         }
 
-        .fav-btn { 
-            background: none; 
-            border: none; 
-            cursor: pointer; 
-            color: rgba(128, 128, 128, 0.4); 
-            transition: 0.3s; 
-            font-size: 1.3rem; 
-            padding: 5px;
-            z-index: 20;
-        }
+        .fav-btn { background: none; border: none; cursor: pointer; color: rgba(128, 128, 128, 0.4); transition: 0.3s; font-size: 1.3rem; padding: 5px; z-index: 20; }
         
-        /* Bintang diam saat tidak di-hover */
         .fav-btn i { animation: none; }
-
-        /* FAVORIT (AKTIF): Berwarna kuning tapi diam saat tidak di-hover */
         .is-fav .fav-btn i { color: #f1c40f; opacity: 1; }
 
-        /* ANIMASI HANYA SAAT MOUSE DI ATAS BINTANG (PAS) */
-        /* Jika belum favorit: kedap kedip mati nyala halus */
-        .fav-btn:hover i {
-            animation: starBlinkIdle 1s infinite ease-in-out;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* Jika sudah favorit: membesar mengecil bercahaya kuat */
-        .is-fav .fav-btn:hover i { 
-            animation: starBlinkActive 1s infinite ease-in-out; 
-            color: #f1c40f;
-        }
+        /* Animasi Pas Hover Bintang */
+        .fav-btn:hover i { animation: starBlinkIdle 1s infinite ease-in-out; color: rgba(255, 255, 255, 0.8); }
+        .is-fav .fav-btn:hover i { animation: starBlinkActive 1s infinite ease-in-out; color: #f1c40f; }
 
         .icon-display { font-size: 3.5rem; margin-bottom: 15px; height: 70px; display: flex; align-items: center; justify-content: center; }
         .yellow-emoji { filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); }
@@ -229,7 +202,7 @@
         <img src="PLN Nusantara Power.png" alt="Logo PLN Nusantara Power" class="logo">
         <div id="digital-clock">00:00:00 - Senin, 01 Jan 2024</div>
         <div class="top-right-tools">
-            <button class="tool-btn" onclick="toggleTheme()" title="Ganti Tema"><i class="fas fa-moon" id="theme-icon"></i></button>
+            <button class="tool-btn" onclick="toggleTheme()" title="Ganti Tema"><span id="theme-icon" class="fas fa-moon"></span></button>
             <button class="tool-btn" onclick="exportData()" title="Ekspor Data"><i class="fas fa-download"></i></button>
             <button class="tool-btn" onclick="document.getElementById('importFile').click()" title="Impor Data"><i class="fas fa-upload"></i></button>
             <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(event)">
@@ -284,6 +257,7 @@
     </div>
 
     <script>
+        // DAFTAR LINK UTAMA DARI KODE (PRIORITAS)
         const initialLinks = [
             { name: "Dashboard Utama", type: "emoji", val: "📊", desc: "Data performa real-time unit.", url: "#", fav: true },
             { name: "Efficiency Tracker", type: "emoji", val: "⚡", desc: "Analisis efisiensi energi.", url: "#", fav: false },
@@ -297,10 +271,24 @@
             { name: "Automation System", type: "emoji", val: "🤖", desc: "Kontrol sistem otomatis.", url: "#", fav: false },
             { name: "Environmental Impact", type: "emoji", val: "🌱", desc: "Monitoring emisi gas buang.", url: "#", fav: false },
             { name: "Digital Library", type: "emoji", val: "📚", desc: "Manual book & standar ISO.", url: "#", fav: false },
-            { name: "SCADA Network", type: "emoji", val: "🌐", desc: "Topologi jaringan kontrol.", url: "#", fav: false }
+            { name: "SCADA Network", type: "emoji", val: "🌐", desc: "Topologi jaringan kontrol.", url: "#", fav: false },
+            { name: "Youtube", type: "emoji", val: "🎬", desc: "Akses cepat ke Youtube.", url: "https://www.youtube.com/", fav: false },
+            { name: "Google Drive", type: "emoji", val: "📁", desc: "Penyimpanan awan Google.", url: "https://drive.google.com/", fav: false },
+            { name: "Google Email", type: "emoji", val: "✉️", desc: "Layanan email Gmail.", url: "https://mail.google.com/", fav: false },
+            { name: "Google Meet", type: "emoji", val: "📹", desc: "Platform rapat daring.", url: "https://meet.google.com/", fav: false },
         ];
 
-        let links = JSON.parse(localStorage.getItem('nps_links')) || initialLinks;
+        // LOGIKA PENGGABUNGAN (MERGE): 
+        // 1. Ambil data tersimpan (yang mungkin ada link manual tambahan user)
+        const storedLinks = JSON.parse(localStorage.getItem('nps_links')) || [];
+        
+        // 2. Cari link di penyimpanan yang TIDAK ada di daftar kode (initialLinks)
+        // Ini adalah link yang murni ditambah manual oleh user di browser.
+        const manualAddedLinks = storedLinks.filter(s => !initialLinks.some(i => i.url === s.url));
+
+        // 3. Gabungkan: initialLinks (Terbaru dari Kode) ditaruh di depan, manual user di belakang
+        let links = [...initialLinks, ...manualAddedLinks];
+
         const emojis = ["⚡", "⚙️", "📊", "🛠️", "📜", "📉", "🔧", "🏭", "🏗️", "🔋", "💡", "📡", "🛡️", "🔬", "🚜", "📐", "🖥️", "🔥", "💧", "🔌", "💎", "🚀", "🚨", "🔩", "🔨"];
         let selectedEmoji = "⚡";
         let currentPage = 1;
@@ -381,13 +369,28 @@
 
         function toggleTheme() {
             const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
             body.setAttribute('data-theme', newTheme);
-            document.getElementById('theme-icon').className = newTheme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            if (newTheme === 'light') {
+                themeIcon.innerHTML = '☀️';
+                themeIcon.className = ''; 
+            } else {
+                themeIcon.innerHTML = '';
+                themeIcon.className = 'fas fa-moon'; 
+            }
             localStorage.setItem('nps_theme', newTheme);
         }
-        if(localStorage.getItem('nps_theme') === 'light') toggleTheme();
+
+        if(localStorage.getItem('nps_theme') === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+            const themeIcon = document.getElementById('theme-icon');
+            themeIcon.innerHTML = '☀️';
+            themeIcon.className = '';
+        }
 
         function exportData() {
             const dataStr = JSON.stringify(links, null, 2);
