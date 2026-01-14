@@ -50,3 +50,6 @@ Portal Dashboard terintegrasi yang dirancang khusus untuk tim **Enjiniring Perfo
 - **Favorit**: Klik ikon bintang pada kartu untuk menaruhnya di barisan paling depan.
 - **Backup**: Gunakan tombol unduh (ikon download) di pojok kanan atas untuk mengekspor daftar link kamu ke file JSON.
 - **Restore**: Gunakan tombol unggah (ikon upload) untuk memasukkan kembali daftar link dari file backup.
+
+---
+#Developed with ❤️ by Gilang Mahasiswa Teknik Komputer ITS - Surabaya, 2026
