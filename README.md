@@ -29,9 +29,23 @@ Portal Dashboard terintegrasi yang dirancang khusus untuk tim **Enjiniring Perfo
 
 ## 📸 Tampilan Antarmuka
 
-*(Tips: Masukkan link gambar dari screenshot Vercel kamu di sini)*
-- **Mode Gelap**: Kontras tinggi dengan identitas biru-kuning PLN.
-- **Mode Terang**: Tampilan bersih dengan teks korporat berwarna biru.
+### Mode Gelap
+![Mode Gelap](Screenshoot/image1.jpg)
+*Tampilan identitas biru-kuning khas PLN pada mode gelap.*
+
+### Mode Terang
+![Mode Terang](Screenshoot/image2.jpg)
+*Tampilan bersih dengan teks korporat berwarna biru pada mode terang.*
+
+---
+
+## 🛠️ Teknologi yang Digunakan
+
+- **HTML5**: Struktur semantik untuk aksesibilitas maksimal.
+- **CSS3 (Custom Properties & Glassmorphism)**: Desain modern menggunakan efek kaca transparan dan variabel CSS untuk tema dinamis.
+- **Vanilla JavaScript (ES6+)**: Logika pemrosesan data, manipulasi DOM, dan sistem penyimpanan tanpa bantuan library eksternal.
+- **LocalStorage API**: Penyimpanan data permanen di browser pengguna.
+- **FontAwesome & Google Fonts**: Tipografi Poppins dan ikonografi profesional.
 
 ---
 
@@ -40,6 +54,9 @@ Portal Dashboard terintegrasi yang dirancang khusus untuk tim **Enjiniring Perfo
 ```text
 ├── index.html          # File utama (Logic, Style, & Structure)
 ├── PLN.png             # Logo utama perusahaan
+├── Screenshoot/        # Folder dokumentasi gambar
+│   ├── image1.jpg      # Screenshot Mode Gelap
+│   └── image2.jpg      # Screenshot Mode Terang
 └── README.md           # Dokumentasi proyek
 ```
 
