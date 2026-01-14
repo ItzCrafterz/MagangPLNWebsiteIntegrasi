@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enjiniring Performance - PLN NPS</title>
     <link rel="icon" type="image/png" href="PLN.png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -18,8 +18,11 @@
             --text-white: #ffffff;
             --bg-gradient: linear-gradient(135deg, #002f5e 0%, #00549b 100%);
             --card-hover: rgba(255, 255, 255, 0.15);
+            /* Variabel Warna Logo */
+            --logo-text-color: #ffffff;
         }
 
+        /* Light Mode Variable */
         [data-theme="light"] {
             --primary-blue: #00549b;
             --accent-yellow: #00549b;
@@ -28,9 +31,11 @@
             --text-white: #333333;
             --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             --card-hover: rgba(0, 0, 0, 0.08);
+            /* Logo menjadi biru saat mode terang */
+            --logo-text-color: #00549b;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s, transform 0.3s; }
 
         body {
             background: var(--bg-gradient);
@@ -44,25 +49,59 @@
             padding-bottom: 50px;
         }
 
+        /* TOP BAR: LOGIKA CENTERING JAM */
         .top-bar { 
             width: 100%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
             padding: 20px 40px; 
+            position: relative; 
         }
-        .logo { max-width: 220px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2)); }
-        
-        .top-right-tools { display: flex; align-items: center; gap: 15px; }
 
+        /* STYLING LOGO BARU (TEKS + GAMBAR) */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            user-select: none;
+        }
+        .logo-img {
+            height: 45px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        .logo-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+            color: var(--logo-text-color);
+        }
+        .brand-pln {
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .brand-np {
+            font-size: 0.85rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
         #digital-clock {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 0.9rem;
             font-weight: 600;
             background: var(--glass-bg);
-            padding: 8px 15px;
+            padding: 8px 20px;
             border-radius: 20px;
             backdrop-filter: blur(5px);
+            white-space: nowrap;
         }
+
+        .top-right-tools { display: flex; align-items: center; gap: 10px; }
 
         .tool-btn {
             background: var(--glass-bg);
@@ -72,12 +111,12 @@
             border-radius: 10px;
             cursor: pointer;
             font-size: 1rem;
-            transition: 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
             min-width: 40px;
             min-height: 40px;
+            transition: 0.3s;
         }
         .tool-btn:hover { background: var(--accent-yellow); color: #002f5e; border-color: var(--accent-yellow); }
 
@@ -85,6 +124,7 @@
         header h1 { font-size: 2.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
         .line { width: 80px; height: 4px; background: var(--accent-yellow); margin: 10px auto; border-radius: 2px; }
 
+        /* AREA PENCARIAN */
         .search-container {
             max-width: 500px;
             margin: 20px auto 0;
@@ -103,17 +143,22 @@
         }
         .search-container i {
             position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.6;
+            left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.6;
         }
 
+        /* GRID SYSTEM */
         #page-container { width: 90%; max-width: 1200px; }
-        .grid-page { display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; width: 100%; animation: fadeIn 0.5s; }
+        .grid-page { 
+            display: none; 
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 20px; 
+            width: 100%; 
+            animation: fadeIn 0.5s; 
+        }
         .grid-page.active { display: grid; }
 
         .card-wrapper { position: relative; border-radius: 15px; height: 100%; }
+        
         .card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -133,45 +178,34 @@
 
         .card-wrapper:hover .card { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.4); background: var(--card-hover); }
 
+        /* CONTROLS (Bintang & Titik 3) */
         .card-nav-top { position: absolute; top: 15px; width: calc(100% - 30px); left: 15px; display: flex; justify-content: space-between; z-index: 10; }
         
         .menu-dots { 
             background: none; border: none; color: var(--text-white); font-size: 1.2rem; cursor: pointer; opacity: 0.1; transition: all 0.3s ease; padding: 5px;
         }
-        
         .menu-dots:hover { 
             opacity: 1 !important; color: var(--accent-yellow); transform: scale(1.3); text-shadow: 0 0 10px var(--accent-yellow);
         }
 
-        .menu-dots:hover ~ .card {
-            border-color: var(--accent-yellow) !important; box-shadow: 0 0 15px rgba(255, 237, 0, 0.3);
-        }
-
         /* ANIMASI BINTANG */
         @keyframes starBlinkActive {
-            0% { transform: scale(1); filter: drop-shadow(0 0 0px #f1c40f); opacity: 1; }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px #f1c40f); opacity: 1; }
             50% { transform: scale(1.4); filter: drop-shadow(0 0 15px #f1c40f); opacity: 0.8; }
-            100% { transform: scale(1); filter: drop-shadow(0 0 0px #f1c40f); opacity: 1; }
         }
-
         @keyframes starBlinkIdle {
-            0% { transform: scale(1); opacity: 0.3; }
+            0%, 100% { transform: scale(1); opacity: 0.3; }
             50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.3; }
         }
 
         .fav-btn { background: none; border: none; cursor: pointer; color: rgba(128, 128, 128, 0.4); transition: 0.3s; font-size: 1.3rem; padding: 5px; z-index: 20; }
-        
-        .fav-btn i { animation: none; }
         .is-fav .fav-btn i { color: #f1c40f; opacity: 1; }
-
-        /* Animasi Pas Hover Bintang */
         .fav-btn:hover i { animation: starBlinkIdle 1s infinite ease-in-out; color: rgba(255, 255, 255, 0.8); }
         .is-fav .fav-btn:hover i { animation: starBlinkActive 1s infinite ease-in-out; color: #f1c40f; }
 
         .icon-display { font-size: 3.5rem; margin-bottom: 15px; height: 70px; display: flex; align-items: center; justify-content: center; }
         .yellow-emoji { filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); }
-        .icon-display img { max-width: 70px; max-height: 70px; object-fit: contain; }
+        .icon-display img { max-width: 65px; max-height: 65px; object-fit: contain; }
 
         .dropdown-menu {
             position: absolute; top: 35px; right: 0; background: white; border-radius: 8px;
@@ -199,8 +233,16 @@
 <body>
 
     <div class="top-bar">
-        <img src="PLN Nusantara Power.png" alt="Logo PLN Nusantara Power" class="logo">
+        <div class="logo-container">
+            <img src="PLN.png" alt="Logo PLN" class="logo-img">
+            <div class="logo-text-wrapper">
+                <span class="brand-pln">PLN</span>
+                <span class="brand-np">Nusantara Power</span>
+            </div>
+        </div>
+
         <div id="digital-clock">00:00:00 - Senin, 01 Jan 2024</div>
+
         <div class="top-right-tools">
             <button class="tool-btn" onclick="toggleTheme()" title="Ganti Tema"><span id="theme-icon" class="fas fa-moon"></span></button>
             <button class="tool-btn" onclick="exportData()" title="Ekspor Data"><i class="fas fa-download"></i></button>
@@ -257,7 +299,7 @@
     </div>
 
     <script>
-        // DAFTAR LINK UTAMA DARI KODE (PRIORITAS)
+        // DAFTAR 17 LINK UTAMA (LENGKAP)
         const initialLinks = [
             { name: "Dashboard Utama", type: "emoji", val: "📊", desc: "Data performa real-time unit.", url: "#", fav: true },
             { name: "Efficiency Tracker", type: "emoji", val: "⚡", desc: "Analisis efisiensi energi.", url: "#", fav: false },
@@ -275,20 +317,14 @@
             { name: "Youtube", type: "emoji", val: "🎬", desc: "Akses cepat ke Youtube.", url: "https://www.youtube.com/", fav: false },
             { name: "Google Drive", type: "emoji", val: "📁", desc: "Penyimpanan awan Google.", url: "https://drive.google.com/", fav: false },
             { name: "Google Email", type: "emoji", val: "✉️", desc: "Layanan email Gmail.", url: "https://mail.google.com/", fav: false },
-            { name: "Google Meet", type: "emoji", val: "📹", desc: "Platform rapat daring.", url: "https://meet.google.com/", fav: false },
+            { name: "Google Meet", type: "emoji", val: "📹", desc: "Platform rapat daring.", url: "https://meet.google.com/", fav: false }
         ];
 
-        // LOGIKA PENGGABUNGAN (MERGE): 
-        // 1. Ambil data tersimpan (yang mungkin ada link manual tambahan user)
+        // LOGIKA MERGE DATA
         const storedLinks = JSON.parse(localStorage.getItem('nps_links')) || [];
-        
-        // 2. Cari link di penyimpanan yang TIDAK ada di daftar kode (initialLinks)
-        // Ini adalah link yang murni ditambah manual oleh user di browser.
         const manualAddedLinks = storedLinks.filter(s => !initialLinks.some(i => i.url === s.url));
-
-        // 3. Gabungkan: initialLinks (Terbaru dari Kode) ditaruh di depan, manual user di belakang
         let links = [...initialLinks, ...manualAddedLinks];
-
+        
         const emojis = ["⚡", "⚙️", "📊", "🛠️", "📜", "📉", "🔧", "🏭", "🏗️", "🔋", "💡", "📡", "🛡️", "🔬", "🚜", "📐", "🖥️", "🔥", "💧", "🔌", "💎", "🚀", "🚨", "🔩", "🔨"];
         let selectedEmoji = "⚡";
         let currentPage = 1;
@@ -326,7 +362,7 @@
                 const start = (i - 1) * itemsPerPage;
                 const pageLinks = filteredLinks.slice(start, start + itemsPerPage);
 
-                pageLinks.forEach((link, idx) => {
+                pageLinks.forEach((link) => {
                     const originalIndex = links.findIndex(l => l.name === link.name && l.url === link.url);
                     let logoHTML = link.type === "emoji" ? `<span class="yellow-emoji">${link.val}</span>` : `<img src="${link.val}">`;
 
@@ -357,6 +393,7 @@
             localStorage.setItem('nps_links', JSON.stringify(links));
         }
 
+        // JAM DIGITAL
         function updateClock() {
             const now = new Date();
             const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -367,6 +404,7 @@
         }
         setInterval(updateClock, 1000);
 
+        // THEME LOGIC
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
@@ -376,30 +414,28 @@
             body.setAttribute('data-theme', newTheme);
             
             if (newTheme === 'light') {
-                themeIcon.innerHTML = '☀️';
-                themeIcon.className = ''; 
+                themeIcon.innerHTML = '☀️'; themeIcon.className = ''; 
             } else {
-                themeIcon.innerHTML = '';
-                themeIcon.className = 'fas fa-moon'; 
+                themeIcon.innerHTML = ''; themeIcon.className = 'fas fa-moon'; 
             }
+            
             localStorage.setItem('nps_theme', newTheme);
         }
 
         if(localStorage.getItem('nps_theme') === 'light') {
             document.body.setAttribute('data-theme', 'light');
-            const themeIcon = document.getElementById('theme-icon');
-            themeIcon.innerHTML = '☀️';
-            themeIcon.className = '';
+            setTimeout(() => {
+                const ti = document.getElementById('theme-icon');
+                if(ti) { ti.innerHTML = '☀️'; ti.className = ''; }
+            }, 100);
         }
 
         function exportData() {
             const dataStr = JSON.stringify(links, null, 2);
             const blob = new Blob([dataStr], { type: "application/json" });
             const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `backup_enjiniring_nps_${new Date().toLocaleDateString()}.json`;
-            link.click();
+            const a = document.createElement('a');
+            a.href = url; a.download = `backup_nps_${new Date().toLocaleDateString()}.json`; a.click();
         }
 
         function importData(event) {
@@ -408,13 +444,9 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 try {
-                    const importedLinks = JSON.parse(e.target.result);
-                    if (Array.isArray(importedLinks)) {
-                        links = importedLinks;
-                        renderPages();
-                        alert("Data berhasil diimpor!");
-                    }
-                } catch (err) { alert("File tidak valid!"); }
+                    const imp = JSON.parse(e.target.result);
+                    if (Array.isArray(imp)) { links = imp; renderPages(); alert("Data diimpor!"); }
+                } catch (err) { alert("File salah!"); }
             };
             reader.readAsText(file);
         }
@@ -424,12 +456,10 @@
             picker.innerHTML = '';
             emojis.forEach(e => {
                 const span = document.createElement('div');
-                span.className = 'emoji-opt';
-                span.innerText = e;
+                span.className = 'emoji-opt'; span.innerText = e;
                 span.onclick = () => {
                     document.querySelectorAll('.emoji-opt').forEach(opt => opt.classList.remove('selected'));
-                    span.classList.add('selected');
-                    selectedEmoji = e;
+                    span.classList.add('selected'); selectedEmoji = e;
                     document.getElementById('customEmoji').value = e;
                 };
                 picker.appendChild(span);
@@ -440,9 +470,8 @@
 
         function createAddCard() {
             const div = document.createElement('div');
-            div.className = 'card card-add card';
-            div.onclick = () => { editIndex = -1; toggleModal(); };
-            div.innerHTML = `<div class="icon-display"><i class="fas fa-plus-circle" style="color:var(--accent-yellow)"></i></div><h3>Tambah Link</h3><p>Klik untuk portal baru.</p>`;
+            div.className = 'card-wrapper';
+            div.innerHTML = `<div class="card" style="cursor:pointer" onclick="toggleModal()"><div class="icon-display"><i class="fas fa-plus-circle" style="color:var(--accent-yellow)"></i></div><h3>Tambah Link</h3><p>Klik untuk portal baru.</p></div>`;
             return div;
         }
 
@@ -475,9 +504,9 @@
         }
 
         function toggleFavorite(event, idx) { event.stopPropagation(); links[idx].fav = !links[idx].fav; renderPages(); }
+        
         function openEdit(idx) {
-            editIndex = idx;
-            const l = links[idx];
+            editIndex = idx; const l = links[idx];
             document.getElementById('linkName').value = l.name;
             document.getElementById('linkUrl').value = l.url;
             document.getElementById('linkDesc').value = l.desc;
@@ -507,6 +536,7 @@
             m.style.display = (m.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        // INITIALIZE
         setupEmojiPicker();
         renderPages();
         updateClock();
