@@ -52,4 +52,4 @@ Portal Dashboard terintegrasi yang dirancang khusus untuk tim **Enjiniring Perfo
 - **Restore**: Gunakan tombol unggah (ikon upload) untuk memasukkan kembali daftar link dari file backup.
 
 ---
-# Developed with ❤️ by Gilang Mahasiswa Teknik Komputer ITS - Surabaya, 2026
+Developed with ❤️ by Gilang Mahasiswa Teknik Komputer ITS - Surabaya, 2026*
