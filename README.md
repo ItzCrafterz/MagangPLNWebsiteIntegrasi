@@ -30,11 +30,11 @@ Portal Dashboard terintegrasi yang dirancang khusus untuk tim **Enjiniring Perfo
 ## 📸 Tampilan Antarmuka
 
 ### Mode Gelap
-![Mode Gelap](Screenshoot/image1.jpg)
+![Mode Gelap](Screenshoot/image1.png)
 *Tampilan identitas biru-kuning khas PLN pada mode gelap.*
 
 ### Mode Terang
-![Mode Terang](Screenshoot/image2.jpg)
+![Mode Terang](Screenshoot/image2.png)
 *Tampilan bersih dengan teks korporat berwarna biru pada mode terang.*
 
 ---
