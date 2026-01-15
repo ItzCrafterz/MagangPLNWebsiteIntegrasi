@@ -18,8 +18,8 @@
             --text-white: #ffffff;
             --bg-gradient: linear-gradient(135deg, #002f5e 0%, #00549b 100%);
             --card-hover: rgba(255, 255, 255, 0.15);
-            /* Variabel Warna Logo */
             --logo-text-color: #ffffff;
+            --logo-glow: rgba(255, 255, 255, 0.4);
         }
 
         /* Light Mode Variable */
@@ -31,8 +31,8 @@
             --text-white: #333333;
             --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             --card-hover: rgba(0, 0, 0, 0.08);
-            /* Logo menjadi biru saat mode terang */
             --logo-text-color: #00549b;
+            --logo-glow: rgba(0, 84, 155, 0.3);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s, transform 0.3s; }
@@ -49,7 +49,7 @@
             padding-bottom: 50px;
         }
 
-        /* TOP BAR: LOGIKA CENTERING JAM */
+        /* TOP BAR */
         .top-bar { 
             width: 100%; 
             display: flex; 
@@ -59,16 +59,34 @@
             position: relative; 
         }
 
-        /* STYLING LOGO BARU (TEKS + GAMBAR) */
+        /* ANIMASI BRAND PULSE (DIPANGGIL SAAT HOVER) */
+        @keyframes brandPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--logo-glow)); opacity: 1; }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 15px var(--logo-glow)); opacity: 0.95; }
+        }
+
+        .logo-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+        }
+        
         .logo-container {
             display: flex;
             align-items: center;
             gap: 12px;
             user-select: none;
+            transition: 0.4s ease-in-out;
         }
+
+        /* LOGIKA HOVER: HANYA BERANIMASI SAAT DISENTUH MOUSE */
+        .logo-link:hover .logo-container {
+            animation: brandPulse 2s infinite ease-in-out;
+        }
+
         .logo-img {
             height: 45px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
         .logo-text-wrapper {
             display: flex;
@@ -215,6 +233,7 @@
         .dropdown-item { padding: 10px 15px; font-size: 0.85rem; color: #333; border: none; background: none; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 10px; }
         .dropdown-item:hover { background: #f0f0f0; }
 
+        /* MODAL */
         #modalOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 200; }
         .modal { background: #fff; color: #333; padding: 25px; border-radius: 20px; width: 90%; max-width: 480px; display: flex; flex-direction: column; gap: 12px; max-height: 90vh; overflow-y: auto; }
         .modal input, .modal textarea, .modal select { padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
@@ -233,13 +252,15 @@
 <body>
 
     <div class="top-bar">
-        <div class="logo-container">
-            <img src="PLN.png" alt="Logo PLN" class="logo-img">
-            <div class="logo-text-wrapper">
-                <span class="brand-pln">PLN</span>
-                <span class="brand-np">Nusantara Power</span>
+        <a href="https://plnnusantarapower.co.id" target="_blank" class="logo-link">
+            <div class="logo-container">
+                <img src="PLN.png" alt="Logo PLN" class="logo-img">
+                <div class="logo-text-wrapper">
+                    <span class="brand-pln">PLN</span>
+                    <span class="brand-np">Nusantara Power</span>
+                </div>
             </div>
-        </div>
+        </a>
 
         <div id="digital-clock">00:00:00 - Senin, 01 Jan 2024</div>
 
