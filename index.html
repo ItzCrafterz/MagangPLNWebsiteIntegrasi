@@ -143,14 +143,14 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            padding: 35px 25px;
+            padding: 25px; /* Padding sedikit dikurangi biar logo lebih luas */
             text-align: center;
             text-decoration: none;
             color: var(--text-white);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 220px;
+            min-height: 230px; /* Tinggi kartu sedikit ditambah */
             height: 100%;
             transition: 0.3s;
         }
@@ -178,9 +178,30 @@
         .fav-btn:hover i { animation: starBlinkIdle 1s infinite ease-in-out; color: rgba(255, 255, 255, 0.8); }
         .is-fav .fav-btn:hover i { animation: starBlinkActive 1s infinite ease-in-out; color: #f1c40f; }
 
-        .icon-display { font-size: 3.5rem; margin-bottom: 15px; height: 70px; display: flex; align-items: center; justify-content: center; }
-        .yellow-emoji { filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); }
-        .icon-display img { max-width: 65px; max-height: 65px; object-fit: contain; }
+        /* MODIFIKASI ICON DISPLAY AGAR GAMBAR BESAR */
+        .icon-display { 
+            margin-bottom: 20px; 
+            height: 90px; /* Area lebih tinggi */
+            width: 100%;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        
+        .yellow-emoji { 
+            font-size: 4.5rem; /* Emoji diperbesar sedikit biar seimbang */
+            filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); 
+        }
+        
+        /* CSS KHUSUS GAMBAR LOGO AGAR NGE-FIT */
+        .icon-display img { 
+            width: auto; 
+            height: auto;
+            max-width: 100%; /* Memenuhi lebar container */
+            max-height: 100%; /* Memenuhi tinggi container */
+            object-fit: contain; /* Memastikan gambar tidak gepeng */
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
 
         /* Dropdown & Modal */
         .dropdown-menu { position: absolute; top: 35px; right: 0; background: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: none; flex-direction: column; min-width: 120px; overflow: hidden; z-index: 100; }
@@ -207,21 +228,19 @@
             border-radius: 30px; 
             font-weight: 600; 
             cursor: pointer; 
-            /* Transisi untuk animasi halus */
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
         }
 
-        /* EFEK HOVER: MEMBESAR DAN MUNCUL */
         .btn-nav:hover:not(:disabled) {
-            transform: scale(1.1); /* Membesar 10% */
-            box-shadow: 0 5px 15px rgba(255, 237, 0, 0.3); /* Efek cahaya */
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 237, 0, 0.3);
         }
 
         .btn-nav:disabled { 
             background: #555; 
             color: #888; 
             cursor: not-allowed; 
-            transform: none; /* Tidak ada animasi jika disabled */
+            transform: none;
         }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -298,8 +317,9 @@
     </div>
 
     <script>
+        // UPDATE: AW & Comando sudah diperbarui
         const initialLinks = [
-            { name: "AW", type: "emoji", val: "📊", desc: "AW Monitoring.", url: "https://aw.pln-npservices.com", fav: true },
+            { name: "AW", type: "emoji", val: "📊", desc: "Asset Watch Monitoring.", url: "https://aw.pln-npservices.com", fav: true },
             { name: "Comando", type: "image", val: "image-0.png", desc: "Digital Performance Monitoring.", url: "https://10.7.146.84:8043/data/perspective/client/comando", fav: false },
             { name: "Maintenance Schedule", type: "emoji", val: "📅", desc: "Jadwal pemeliharaan rutin.", url: "#", fav: false },
             { name: "Laporan Harian", type: "emoji", val: "📝", desc: "Log harian operasional.", url: "#", fav: false },
