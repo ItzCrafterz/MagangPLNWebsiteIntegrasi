@@ -7,7 +7,6 @@
     <link rel="icon" type="image/png" href="PLN.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
     
     <style>
@@ -22,6 +21,8 @@
             --card-hover: rgba(255, 255, 255, 0.15);
             --logo-text-color: #ffffff;
             --logo-glow: rgba(255, 255, 255, 0.4);
+            /* Warna untuk tulisan URL samar */
+            --text-subtle: rgba(255, 255, 255, 0.5); 
         }
 
         /* Light Mode Variable */
@@ -35,6 +36,8 @@
             --card-hover: rgba(0, 0, 0, 0.08);
             --logo-text-color: #00549b;
             --logo-glow: rgba(0, 84, 155, 0.3);
+            /* Warna samar untuk mode terang (abu gelap transparan) */
+            --text-subtle: rgba(0, 0, 0, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s, transform 0.3s; }
@@ -143,23 +146,52 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            padding: 25px; /* Padding sedikit dikurangi biar logo lebih luas */
+            padding: 25px;
             text-align: center;
             text-decoration: none;
             color: var(--text-white);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 230px; /* Tinggi kartu sedikit ditambah */
+            min-height: 230px;
             height: 100%;
             transition: 0.3s;
+            overflow: hidden; /* Mencegah konten keluar kotak */
         }
 
         .card-wrapper:hover .card { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.4); background: var(--card-hover); }
 
-        /* CONTROLS (Bintang & Titik 3) */
+        /* TEKS DESKRIPSI & URL */
+        .card h3 {
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        .card p {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            /* Mencegah teks deskripsi panjang merusak layout */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* STYLE BARU UNTUK URL SAMAR */
+        .card-url {
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            font-weight: 300;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Titik-titik jika kepanjangan */
+            max-width: 100%;
+            margin-top: auto; /* Mendorong ke bawah jika ada ruang sisa */
+            padding-top: 5px;
+            border-top: 1px solid rgba(255,255,255,0.1); /* Garis pemisah tipis */
+        }
+
+        /* CONTROLS */
         .card-nav-top { position: absolute; top: 15px; width: calc(100% - 30px); left: 15px; display: flex; justify-content: space-between; z-index: 10; }
-        
         .menu-dots { background: none; border: none; color: var(--text-white); font-size: 1.2rem; cursor: pointer; opacity: 0.1; transition: all 0.3s ease; padding: 5px; }
         .menu-dots:hover { opacity: 1 !important; color: var(--accent-yellow); transform: scale(1.3); text-shadow: 0 0 10px var(--accent-yellow); }
 
@@ -178,10 +210,10 @@
         .fav-btn:hover i { animation: starBlinkIdle 1s infinite ease-in-out; color: rgba(255, 255, 255, 0.8); }
         .is-fav .fav-btn:hover i { animation: starBlinkActive 1s infinite ease-in-out; color: #f1c40f; }
 
-        /* MODIFIKASI ICON DISPLAY AGAR GAMBAR BESAR */
+        /* MODIFIKASI ICON DISPLAY */
         .icon-display { 
-            margin-bottom: 20px; 
-            height: 90px; /* Area lebih tinggi */
+            margin-bottom: 15px; 
+            height: 90px;
             width: 100%;
             display: flex; 
             align-items: center; 
@@ -189,17 +221,16 @@
         }
         
         .yellow-emoji { 
-            font-size: 4.5rem; /* Emoji diperbesar sedikit biar seimbang */
+            font-size: 4.5rem; 
             filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); 
         }
         
-        /* CSS KHUSUS GAMBAR LOGO AGAR NGE-FIT */
         .icon-display img { 
             width: auto; 
             height: auto;
-            max-width: 100%; /* Memenuhi lebar container */
-            max-height: 100%; /* Memenuhi tinggi container */
-            object-fit: contain; /* Memastikan gambar tidak gepeng */
+            max-width: 100%; 
+            max-height: 100%; 
+            object-fit: contain; 
             filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
 
@@ -317,7 +348,6 @@
     </div>
 
     <script>
-        // UPDATE: AW & Comando sudah diperbarui
         const initialLinks = [
             { name: "AW", type: "emoji", val: "📊", desc: "Asset Watch Monitoring.", url: "https://aw.pln-npservices.com", fav: true },
             { name: "Comando", type: "image", val: "image-0.png", desc: "Digital Performance Monitoring.", url: "https://10.7.146.84:8043/data/perspective/client/comando", fav: false },
@@ -383,6 +413,10 @@
                     const originalIndex = links.findIndex(l => l.name === link.name && l.url === link.url);
                     let logoHTML = link.type === "emoji" ? `<span class="yellow-emoji">${link.val}</span>` : `<img src="${link.val}">`;
 
+                    // PEMBERSIHAN URL UNTUK TAMPILAN (Hapus https://)
+                    let cleanUrl = link.url.replace(/^https?:\/\//, '').replace(/^www\./, '');
+                    if (cleanUrl.length > 30) cleanUrl = cleanUrl.substring(0, 27) + "..."; // Potong jika terlalu panjang
+
                     pageDiv.innerHTML += `
                         <div class="card-wrapper ${link.fav ? 'is-fav' : ''}">
                             <div class="card-nav-top">
@@ -397,6 +431,7 @@
                                 <div class="icon-display">${logoHTML}</div>
                                 <h3>${link.name}</h3>
                                 <p>${link.desc}</p>
+                                <div class="card-url"><i class="fas fa-link" style="font-size:0.6rem; margin-right:4px;"></i>${cleanUrl}</div>
                             </a>
                         </div>
                     `;
