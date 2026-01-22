@@ -21,11 +21,9 @@
             --card-hover: rgba(255, 255, 255, 0.15);
             --logo-text-color: #ffffff;
             --logo-glow: rgba(255, 255, 255, 0.4);
-            /* Warna untuk tulisan URL samar */
             --text-subtle: rgba(255, 255, 255, 0.5); 
         }
 
-        /* Light Mode Variable */
         [data-theme="light"] {
             --primary-blue: #00549b;
             --accent-yellow: #00549b;
@@ -36,21 +34,13 @@
             --card-hover: rgba(0, 0, 0, 0.08);
             --logo-text-color: #00549b;
             --logo-glow: rgba(0, 84, 155, 0.3);
-            /* Warna samar untuk mode terang (abu gelap transparan) */
             --text-subtle: rgba(0, 0, 0, 0.5);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background 0.3s, color 0.3s, transform 0.3s; }
 
-        /* PERBAIKAN IKON WAJIB */
-        .fas, .fab, .far, .fa {
-            font-family: "Font Awesome 6 Free" !important;
-            font-weight: 900;
-        }
-        .fab {
-            font-family: "Font Awesome 6 Brands" !important;
-            font-weight: 400;
-        }
+        .fas, .fab, .far, .fa { font-family: "Font Awesome 6 Free" !important; font-weight: 900; }
+        .fab { font-family: "Font Awesome 6 Brands" !important; font-weight: 400; }
 
         body {
             background: var(--bg-gradient);
@@ -65,16 +55,8 @@
         }
 
         /* TOP BAR */
-        .top-bar { 
-            width: 100%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 20px 40px; 
-            position: relative; 
-        }
+        .top-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; position: relative; }
 
-        /* LOGO ANIMASI */
         @keyframes brandPulse {
             0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px var(--logo-glow)); opacity: 1; }
             50% { transform: scale(1.08); filter: drop-shadow(0 0 15px var(--logo-glow)); opacity: 0.95; }
@@ -83,41 +65,23 @@
         .logo-link { text-decoration: none; color: inherit; display: block; cursor: pointer; }
         .logo-container { display: flex; align-items: center; gap: 12px; user-select: none; transition: 0.4s ease-in-out; }
         .logo-link:hover .logo-container { animation: brandPulse 2s infinite ease-in-out; }
-
         .logo-img { height: 45px; }
         .logo-text-wrapper { display: flex; flex-direction: column; line-height: 1.1; color: var(--logo-text-color); }
         .brand-pln { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; }
         .brand-np { font-size: 0.85rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; }
         
         #digital-clock {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-            font-weight: 600;
-            background: var(--glass-bg);
-            padding: 8px 20px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            white-space: nowrap;
+            position: absolute; left: 50%; transform: translateX(-50%);
+            font-size: 0.9rem; font-weight: 600; background: var(--glass-bg);
+            padding: 8px 20px; border-radius: 20px; backdrop-filter: blur(5px); white-space: nowrap;
         }
 
         .top-right-tools { display: flex; align-items: center; gap: 10px; }
 
         .tool-btn {
-            background: var(--glass-bg);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: var(--text-white);
-            padding: 8px 12px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 40px;
-            min-height: 40px;
-            transition: 0.3s;
+            background: var(--glass-bg); border: 1px solid rgba(255,255,255,0.2); color: var(--text-white);
+            padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1rem;
+            display: flex; align-items: center; justify-content: center; min-width: 40px; min-height: 40px; transition: 0.3s;
         }
         .tool-btn:hover { background: var(--accent-yellow); color: #002f5e; border-color: var(--accent-yellow); }
 
@@ -125,7 +89,6 @@
         header h1 { font-size: 2.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
         .line { width: 80px; height: 4px; background: var(--accent-yellow); margin: 10px auto; border-radius: 2px; }
 
-        /* SEARCH CONTAINER */
         .search-container { max-width: 500px; margin: 20px auto 0; position: relative; }
         .search-container input {
             width: 100%; padding: 12px 20px 12px 45px; border-radius: 30px;
@@ -134,7 +97,6 @@
         }
         .search-container i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); opacity: 0.6; }
 
-        /* GRID SYSTEM */
         #page-container { width: 90%; max-width: 1200px; }
         .grid-page { display: none; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; width: 100%; animation: fadeIn 0.5s; }
         .grid-page.active { display: grid; }
@@ -156,89 +118,59 @@
             min-height: 230px;
             height: 100%;
             transition: 0.3s;
-            overflow: hidden; /* Mencegah konten keluar kotak */
+            position: relative;
         }
 
         .card-wrapper:hover .card { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.4); background: var(--card-hover); }
 
-        /* TEKS DESKRIPSI & URL */
         .card h3 {
-            margin-bottom: 5px;
-            font-size: 1.1rem;
+            margin-bottom: 5px; font-size: 1.1rem;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
         }
         .card p {
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            /* Mencegah teks deskripsi panjang merusak layout */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-size: 0.9rem; margin-bottom: 8px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; max-width: 100%;
         }
-
-        /* STYLE BARU UNTUK URL SAMAR */
         .card-url {
-            font-size: 0.75rem;
-            color: var(--text-subtle);
-            font-weight: 300;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis; /* Titik-titik jika kepanjangan */
-            max-width: 100%;
-            margin-top: auto; /* Mendorong ke bawah jika ada ruang sisa */
-            padding-top: 5px;
-            border-top: 1px solid rgba(255,255,255,0.1); /* Garis pemisah tipis */
+            font-size: 0.75rem; color: var(--text-subtle); font-weight: 300;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            max-width: 100%; margin-top: auto; padding-top: 5px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* CONTROLS */
-        .card-nav-top { position: absolute; top: 15px; width: calc(100% - 30px); left: 15px; display: flex; justify-content: space-between; z-index: 10; }
+        .card-nav-top { 
+            position: absolute; top: 15px; width: calc(100% - 30px); left: 15px; 
+            display: flex; justify-content: space-between; z-index: 20; 
+        }
+        
         .menu-dots { background: none; border: none; color: var(--text-white); font-size: 1.2rem; cursor: pointer; opacity: 0.1; transition: all 0.3s ease; padding: 5px; }
         .menu-dots:hover { opacity: 1 !important; color: var(--accent-yellow); transform: scale(1.3); text-shadow: 0 0 10px var(--accent-yellow); }
 
-        /* ANIMASI BINTANG */
+        .dropdown-menu {
+            position: absolute; top: 100%; right: 0; background: white; border-radius: 8px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: none; flex-direction: column; 
+            min-width: 120px; overflow: hidden; z-index: 999;
+        }
+        
+        .dropdown-menu.show { display: flex; }
+        .dropdown-item { padding: 10px 15px; font-size: 0.85rem; color: #333; border: none; background: none; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .dropdown-item:hover { background: #f0f0f0; }
+
         @keyframes starBlinkActive {
             0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px #f1c40f); opacity: 1; }
             50% { transform: scale(1.4); filter: drop-shadow(0 0 15px #f1c40f); opacity: 0.8; }
         }
-        @keyframes starBlinkIdle {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.2); opacity: 1; }
-        }
+        @keyframes starBlinkIdle { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.2); opacity: 1; } }
 
         .fav-btn { background: none; border: none; cursor: pointer; color: rgba(128, 128, 128, 0.4); transition: 0.3s; font-size: 1.3rem; padding: 5px; z-index: 20; }
         .is-fav .fav-btn i { color: #f1c40f; opacity: 1; }
         .fav-btn:hover i { animation: starBlinkIdle 1s infinite ease-in-out; color: rgba(255, 255, 255, 0.8); }
         .is-fav .fav-btn:hover i { animation: starBlinkActive 1s infinite ease-in-out; color: #f1c40f; }
 
-        /* MODIFIKASI ICON DISPLAY */
-        .icon-display { 
-            margin-bottom: 15px; 
-            height: 90px;
-            width: 100%;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-        }
-        
-        .yellow-emoji { 
-            font-size: 4.5rem; 
-            filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); 
-        }
-        
-        .icon-display img { 
-            width: auto; 
-            height: auto;
-            max-width: 100%; 
-            max-height: 100%; 
-            object-fit: contain; 
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-        }
-
-        /* Dropdown & Modal */
-        .dropdown-menu { position: absolute; top: 35px; right: 0; background: white; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: none; flex-direction: column; min-width: 120px; overflow: hidden; z-index: 100; }
-        .dropdown-menu.show { display: flex; }
-        .dropdown-item { padding: 10px 15px; font-size: 0.85rem; color: #333; border: none; background: none; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 10px; }
-        .dropdown-item:hover { background: #f0f0f0; }
+        .icon-display { margin-bottom: 15px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; }
+        .yellow-emoji { font-size: 4.5rem; filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-10deg) saturate(1000%); }
+        .icon-display img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
 
         #modalOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 200; }
         .modal { background: #fff; color: #333; padding: 25px; border-radius: 20px; width: 90%; max-width: 480px; display: flex; flex-direction: column; gap: 12px; max-height: 90vh; overflow-y: auto; }
@@ -248,31 +180,15 @@
         .emoji-opt { font-size: 1.4rem; padding: 5px; cursor: pointer; border-radius: 8px; text-align: center; transition: 0.2s; border: 1px solid transparent; }
         .emoji-opt.selected { background: var(--primary-blue); color: white; }
 
-        /* NAVIGASI TOMBOL DENGAN ANIMASI POP */
         .nav-wrapper { margin-top: 40px; display: flex; gap: 20px; align-items: center; }
         
         .btn-nav { 
-            background: var(--accent-yellow); 
-            color: #002f5e; 
-            border: none; 
-            padding: 10px 25px; 
-            border-radius: 30px; 
-            font-weight: 600; 
-            cursor: pointer; 
+            background: var(--accent-yellow); color: #002f5e; border: none; padding: 10px 25px; 
+            border-radius: 30px; font-weight: 600; cursor: pointer; 
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
         }
-
-        .btn-nav:hover:not(:disabled) {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(255, 237, 0, 0.3);
-        }
-
-        .btn-nav:disabled { 
-            background: #555; 
-            color: #888; 
-            cursor: not-allowed; 
-            transform: none;
-        }
+        .btn-nav:hover:not(:disabled) { transform: scale(1.1); box-shadow: 0 5px 15px rgba(255, 237, 0, 0.3); }
+        .btn-nav:disabled { background: #555; color: #888; cursor: not-allowed; transform: none; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -324,22 +240,17 @@
             <input type="text" id="linkName" placeholder="Nama Link">
             <input type="text" id="linkUrl" placeholder="https://...">
             <textarea id="linkDesc" rows="2" placeholder="Deskripsi..."></textarea>
-            
-            <label style="font-weight:600; font-size: 0.8rem;">Tipe Logo:</label>
             <select id="logoType" onchange="toggleLogoInputs()">
                 <option value="emoji">Emoji (Pilih atau Copas)</option>
                 <option value="image">Unggah Gambar</option>
             </select>
-
             <div id="emojiGroup">
                 <input type="text" id="customEmoji" placeholder="Copas emoji di sini..." style="margin-bottom:10px; width:100%" oninput="updateSelectedFromInput()">
                 <div class="emoji-picker" id="emojiPicker"></div>
             </div>
-
             <div id="imageGroup" style="display:none;">
                 <input type="file" id="linkFile" accept="image/*" onchange="previewFile()">
             </div>
-            
             <div style="display: flex; gap: 10px; margin-top: 10px;">
                 <button class="btn-nav" style="flex: 1; background: #27ae60; color: white;" onclick="saveLink()">Simpan</button>
                 <button class="btn-nav" style="flex: 1; background: #e74c3c; color: white;" onclick="toggleModal()">Batal</button>
@@ -356,12 +267,6 @@
             { name: "Safety First", type: "emoji", val: "⛑️", desc: "Prosedur K3 dan regulasi.", url: "#", fav: false },
             { name: "Technical Specs", type: "emoji", val: "⚙️", desc: "Spesifikasi teknis alat.", url: "#", fav: false },
             { name: "Team Enjiniring", type: "emoji", val: "👥", desc: "Kontak koordinasi tim.", url: "#", fav: false },
-            { name: "Sparepart Stock", type: "emoji", val: "📦", desc: "Cek stok suku cadang.", url: "#", fav: false },
-            { name: "Fuel Management", type: "emoji", val: "⛽", desc: "Manajemen bahan bakar.", url: "#", fav: false },
-            { name: "Automation System", type: "emoji", val: "🤖", desc: "Kontrol sistem otomatis.", url: "#", fav: false },
-            { name: "Environmental Impact", type: "emoji", val: "🌱", desc: "Monitoring emisi gas buang.", url: "#", fav: false },
-            { name: "Digital Library", type: "emoji", val: "📚", desc: "Manual book & standar ISO.", url: "#", fav: false },
-            { name: "SCADA Network", type: "emoji", val: "🌐", desc: "Topologi jaringan kontrol.", url: "#", fav: false },
             { name: "Youtube", type: "emoji", val: "🎬", desc: "Akses cepat ke Youtube.", url: "https://www.youtube.com/", fav: false },
             { name: "Google Drive", type: "emoji", val: "📁", desc: "Penyimpanan awan Google.", url: "https://drive.google.com/", fav: false },
             { name: "Google Email", type: "emoji", val: "✉️", desc: "Layanan email Gmail.", url: "https://mail.google.com/", fav: false },
@@ -413,18 +318,19 @@
                     const originalIndex = links.findIndex(l => l.name === link.name && l.url === link.url);
                     let logoHTML = link.type === "emoji" ? `<span class="yellow-emoji">${link.val}</span>` : `<img src="${link.val}">`;
 
-                    // PEMBERSIHAN URL UNTUK TAMPILAN (Hapus https://)
                     let cleanUrl = link.url.replace(/^https?:\/\//, '').replace(/^www\./, '');
-                    if (cleanUrl.length > 30) cleanUrl = cleanUrl.substring(0, 27) + "..."; // Potong jika terlalu panjang
+                    if (cleanUrl.length > 30) cleanUrl = cleanUrl.substring(0, 27) + "...";
 
                     pageDiv.innerHTML += `
                         <div class="card-wrapper ${link.fav ? 'is-fav' : ''}">
                             <div class="card-nav-top">
                                 <button class="fav-btn" onclick="toggleFavorite(event, ${originalIndex})" title="Favorit"><i class="fas fa-star"></i></button>
-                                <button class="menu-dots" onclick="toggleDropdown(event, ${originalIndex})"><i class="fas fa-ellipsis-v"></i></button>
-                                <div id="dropdown-${originalIndex}" class="dropdown-menu">
-                                    <button class="dropdown-item" onclick="openEdit(${originalIndex})"><i class="fas fa-edit"></i> Edit</button>
-                                    <button class="dropdown-item" style="color:red" onclick="deleteLink(${originalIndex})"><i class="fas fa-trash"></i> Hapus</button>
+                                <div style="position:relative;">
+                                    <button class="menu-dots" onclick="toggleDropdown(event, ${originalIndex})"><i class="fas fa-ellipsis-v"></i></button>
+                                    <div id="dropdown-${originalIndex}" class="dropdown-menu">
+                                        <button class="dropdown-item" onclick="openEdit(${originalIndex})"><i class="fas fa-edit"></i> Edit</button>
+                                        <button class="dropdown-item" style="color:red" onclick="deleteLink(${originalIndex})"><i class="fas fa-trash"></i> Hapus</button>
+                                    </div>
                                 </div>
                             </div>
                             <a href="${link.url}" class="card" target="_blank">
@@ -460,24 +366,15 @@
             const themeIcon = document.getElementById('theme-icon');
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
             body.setAttribute('data-theme', newTheme);
-            
-            if (newTheme === 'light') {
-                themeIcon.innerHTML = '☀️'; themeIcon.className = ''; 
-            } else {
-                themeIcon.innerHTML = ''; themeIcon.className = 'fas fa-moon'; 
-            }
-            
+            if (newTheme === 'light') { themeIcon.innerHTML = '☀️'; themeIcon.className = ''; } 
+            else { themeIcon.innerHTML = ''; themeIcon.className = 'fas fa-moon'; }
             localStorage.setItem('nps_theme', newTheme);
         }
 
         if(localStorage.getItem('nps_theme') === 'light') {
             document.body.setAttribute('data-theme', 'light');
-            setTimeout(() => {
-                const ti = document.getElementById('theme-icon');
-                if(ti) { ti.innerHTML = '☀️'; ti.className = ''; }
-            }, 100);
+            setTimeout(() => { const ti = document.getElementById('theme-icon'); if(ti){ ti.innerHTML = '☀️'; ti.className = ''; } }, 100);
         }
 
         function exportData() {
@@ -493,10 +390,8 @@
             if (!file) return;
             const reader = new FileReader();
             reader.onload = (e) => {
-                try {
-                    const imp = JSON.parse(e.target.result);
-                    if (Array.isArray(imp)) { links = imp; renderPages(); alert("Data diimpor!"); }
-                } catch (err) { alert("File salah!"); }
+                try { const imp = JSON.parse(e.target.result); if (Array.isArray(imp)) { links = imp; renderPages(); alert("Data diimpor!"); } } 
+                catch (err) { alert("File salah!"); }
             };
             reader.readAsText(file);
         }
@@ -539,13 +434,25 @@
         }
 
         function saveLink() {
-            const name = document.getElementById('linkName').value;
-            const url = document.getElementById('linkUrl').value;
+            const name = document.getElementById('linkName').value.trim();
+            const url = document.getElementById('linkUrl').value.trim();
             const desc = document.getElementById('linkDesc').value;
             const type = document.getElementById('logoType').value;
             let val = type === 'emoji' ? selectedEmoji : (tempImageData || (editIndex !== -1 ? links[editIndex].val : ""));
 
             if (name && url) {
+                // LOGIKA ANTI-DUPLICATE
+                const isDuplicate = links.some((link, index) => {
+                    if (editIndex !== -1 && index === editIndex) return false;
+                    return link.name.toLowerCase() === name.toLowerCase() || 
+                           link.url.toLowerCase() === url.toLowerCase();
+                });
+
+                if (isDuplicate) {
+                    alert("Gagal: Nama atau URL link sudah ada!");
+                    return;
+                }
+
                 const newData = { name, url, desc, type, val, fav: editIndex !== -1 ? links[editIndex].fav : false };
                 if (editIndex === -1) links.push(newData);
                 else links[editIndex] = newData;
