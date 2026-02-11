@@ -192,65 +192,84 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- RESPONSIVE MOBILE (HP) - UPDATE --- */
+        /* --- RESPONSIVE MOBILE (HP) - FIXED --- */
         @media (max-width: 768px) {
             .top-bar {
-                flex-wrap: wrap; /* Biarkan elemen membungkus */
-                justify-content: space-between; /* Logo kiri, Tools kanan */
-                padding: 15px 20px;
+                flex-direction: row; /* Paksa tetap 1 baris */
+                flex-wrap: nowrap; /* Jangan turun ke bawah */
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
                 gap: 10px;
             }
 
             .logo-link {
-                flex: 0 1 auto; /* Ukuran logo natural */
+                flex-shrink: 1; /* Logo boleh mengecil kalau perlu */
+                min-width: 0; /* Biar teks bisa wrap/kecil tanpa maksa lebar */
             }
 
-            /* Tools dipojok kanan atas & dikecilin */
+            /* LOGO & TEKS LEBIH KECIL */
+            .logo-img { height: 35px; } /* Kecilkan gambar logo */
+            .logo-container { gap: 8px; }
+            .brand-pln { font-size: 1.2rem; } /* Kecilkan teks PLN */
+            .brand-np { 
+                font-size: 0.65rem; /* Kecilkan teks Nusantara Power */
+                letter-spacing: 0;
+            }
+
+            /* Tools tetap di kanan */
             .top-right-tools {
-                flex: 0 1 auto; 
-                justify-content: flex-end; /* Mepet kanan */
-                gap: 8px; /* Jarak antar tombol lebih rapat */
+                flex-shrink: 0; /* Jangan sampai tombol gepeng */
             }
 
             .top-right-tools .tool-btn {
-                 padding: 6px 8px; /* Padding lebih kecil */
-                 font-size: 0.85rem; /* Ikon lebih kecil */
-                 min-width: 32px; /* Ukuran box minimum lebih kecil */
+                 padding: 6px; 
+                 font-size: 0.9rem;
+                 min-width: 32px; 
                  min-height: 32px;
                  border-radius: 8px;
             }
 
-            /* Jam turun ke bawah */
+            /* Jam tetap di bawah */
             #digital-clock {
                 position: relative; 
                 left: auto;
                 transform: none;
-                order: 3; /* Urutan terakhir di top bar */
+                order: 3; /* Tidak ngaruh krn top-bar ngga wrap, tpi ini backup klo dipindah container */
                 width: 100%;
                 text-align: center;
-                margin-top: 5px;
-                font-size: 0.85rem;
+                margin-top: -5px; /* Tarik dikit ke atas */
+                margin-bottom: 10px;
+                font-size: 0.8rem;
+                /* Jam butuh container sendiri krn top-bar flex row, jadi kita inject via JS atau biarkan dia di tengah absolute di versi desktop, tapi di mobile kita hide atau pindah */
+                /* FIX JAM MOBILE: Sembunyikan jam dari top-bar, munculkan di bawah header */
+                display: none; 
             }
 
-            header h1 { font-size: 1.8rem; }
+            /* Tampilkan jam di tempat lain khusus mobile (opsional, atau biarkan hidden biar bersih) */
+            /* Kita buat jam muncul di bawah header search saja */
+            
+            header h1 { font-size: 1.6rem; margin-top: 10px; }
             .line { width: 50px; }
 
-            /* Search box lebih ramping di HP */
             .search-container {
-                width: 85%; /* Tidak full 100% biar ada sisa kiri kanan */
-                margin: 20px auto 0 auto;
+                width: 90%; 
+                margin: 10px auto 0 auto;
             }
             .search-container input {
                  font-size: 0.9rem;
                  padding: 10px 15px 10px 40px;
             }
-            .search-container i { left: 15px; font-size: 0.9rem; }
             
             .grid-page { grid-template-columns: 1fr; gap: 15px; }
         }
     </style>
 </head>
 <body>
+
+    <div id="mobile-clock" style="display:none; text-align:center; font-size:0.85rem; font-weight:600; margin-top:10px; color:var(--text-white); background:var(--glass-bg); padding:5px 15px; border-radius:15px; width: fit-content; margin: 10px auto;">
+        00:00:00
+    </div>
 
     <div class="top-bar">
         <a href="https://plnnusantarapower.co.id" target="_blank" class="logo-link">
@@ -326,7 +345,7 @@
             { name: "Google Meet", type: "emoji", val: "📹", desc: "Platform rapat daring", url: "https://meet.google.com/", fav: false },
             { name: "Google Drive", type: "emoji", val: "📂", desc: "Layanan penyimpanan awan Google", url: "https://drive.google.com/", fav: false },
             { name: "Google Calendar", type: "emoji", val: "📅", desc: "Aplikasi kalender Google", url: "https://calendar.google.com/", fav: false },
-            { name: "Google Docs", type: "emoji", val: "📄", desc: "Google Documents", url: "https://docs.google.com/", fav: false }
+            { name: "Google Docs", type: "emoji", val: "📄", desc: "Google Documents", url: "https://docs.google.com/", fav: false },
         ];
 
         const storedLinks = JSON.parse(localStorage.getItem('nps_links')) || [];
@@ -413,7 +432,20 @@
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
             const timeStr = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0') + ":" + now.getSeconds().toString().padStart(2, '0');
             const dateStr = days[now.getDay()] + ", " + now.getDate() + " " + months[now.getMonth()] + " " + now.getFullYear();
-            document.getElementById('digital-clock').innerText = timeStr + " - " + dateStr;
+            
+            // Update Jam Desktop
+            const clockEl = document.getElementById('digital-clock');
+            if(clockEl) clockEl.innerText = timeStr + " - " + dateStr;
+
+            // Update Jam Mobile
+            const mobileClock = document.getElementById('mobile-clock');
+            if(mobileClock) {
+                // Di mobile kita hanya tampilkan jam dan tanggal singkat biar muat
+                mobileClock.innerText = timeStr + " | " + dateStr;
+                // Cek lebar layar, jika mobile baru tampilkan
+                if(window.innerWidth <= 768) mobileClock.style.display = 'block';
+                else mobileClock.style.display = 'none';
+            }
         }
         setInterval(updateClock, 1000);
 
