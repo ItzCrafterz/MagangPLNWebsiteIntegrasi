@@ -192,46 +192,61 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- RESPONSIVE MOBILE (HP) --- */
+        /* --- RESPONSIVE MOBILE (HP) - UPDATE --- */
         @media (max-width: 768px) {
             .top-bar {
-                flex-direction: column; /* Susun ke bawah */
-                gap: 15px;
-                padding: 15px;
-                height: auto;
+                flex-wrap: wrap; /* Biarkan elemen membungkus */
+                justify-content: space-between; /* Logo kiri, Tools kanan */
+                padding: 15px 20px;
+                gap: 10px;
             }
 
-            /* Matikan posisi absolut jam biar tidak nabrak */
+            .logo-link {
+                flex: 0 1 auto; /* Ukuran logo natural */
+            }
+
+            /* Tools dipojok kanan atas & dikecilin */
+            .top-right-tools {
+                flex: 0 1 auto; 
+                justify-content: flex-end; /* Mepet kanan */
+                gap: 8px; /* Jarak antar tombol lebih rapat */
+            }
+
+            .top-right-tools .tool-btn {
+                 padding: 6px 8px; /* Padding lebih kecil */
+                 font-size: 0.85rem; /* Ikon lebih kecil */
+                 min-width: 32px; /* Ukuran box minimum lebih kecil */
+                 min-height: 32px;
+                 border-radius: 8px;
+            }
+
+            /* Jam turun ke bawah */
             #digital-clock {
                 position: relative; 
                 left: auto;
                 transform: none;
-                order: 2; /* Taruh jam di urutan kedua (tengah) */
+                order: 3; /* Urutan terakhir di top bar */
                 width: 100%;
                 text-align: center;
-                margin: 5px 0;
+                margin-top: 5px;
+                font-size: 0.85rem;
             }
 
-            .logo-link {
-                order: 1; /* Logo paling atas */
-                align-self: flex-start;
-            }
-
-            .top-right-tools {
-                order: 3; /* Tombol tools paling bawah */
-                width: 100%;
-                justify-content: center; /* Tombol rata tengah */
-            }
-
-            /* Kecilkan judul di HP */
             header h1 { font-size: 1.8rem; }
             .line { width: 50px; }
-            
-            /* Sesuaikan grid kartu biar pas di layar HP */
-            .grid-page {
-                grid-template-columns: 1fr; /* 1 kolom penuh ke bawah */
-                gap: 15px;
+
+            /* Search box lebih ramping di HP */
+            .search-container {
+                width: 85%; /* Tidak full 100% biar ada sisa kiri kanan */
+                margin: 20px auto 0 auto;
             }
+            .search-container input {
+                 font-size: 0.9rem;
+                 padding: 10px 15px 10px 40px;
+            }
+            .search-container i { left: 15px; font-size: 0.9rem; }
+            
+            .grid-page { grid-template-columns: 1fr; gap: 15px; }
         }
     </style>
 </head>
@@ -307,8 +322,11 @@
             { name: "Laporan DPP", type: "emoji", val: "📋", desc: "Soket Tools Reliability Report", url: "http://10.7.1.101/soket_tools/reliability.php", fav: false },
             { name: "File Sharing", type: "emoji", val: "📁", desc: "Cloud Drive PLN-NPS", url: "https://drive.pln-npservices.com/", fav: false },
             { name: "Youtube", type: "emoji", val: "🎬", desc: "Akses cepat ke Youtube", url: "https://www.youtube.com/", fav: false },
-            { name: "Google Email", type: "emoji", val: "✉️", desc: "Layanan email Gmail", url: "https://mail.google.com/", fav: false },
-            { name: "Google Meet", type: "emoji", val: "📹", desc: "Platform rapat daring", url: "https://meet.google.com/", fav: false }
+            { name: "Google Email", type: "emoji", val: "✉️", desc: "Layanan email Google", url: "https://mail.google.com/", fav: false },
+            { name: "Google Meet", type: "emoji", val: "📹", desc: "Platform rapat daring", url: "https://meet.google.com/", fav: false },
+            { name: "Google Drive", type: "emoji", val: "📂", desc: "Layanan penyimpanan awan Google", url: "https://drive.google.com/", fav: false },
+            { name: "Google Calendar", type: "emoji", val: "📅", desc: "Aplikasi kalender Google", url: "https://calendar.google.com/", fav: false },
+            { name: "Google Docs", type: "emoji", val: "📄", desc: "Google Documents", url: "https://docs.google.com/", fav: false }
         ];
 
         const storedLinks = JSON.parse(localStorage.getItem('nps_links')) || [];
@@ -538,4 +556,3 @@
     </script>
 </body>
 </html>
-
